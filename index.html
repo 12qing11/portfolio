@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄宝晴 · 非线性编辑作品集</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ============================================================
+   CSS 变量 & 全局重置
+   ★ 编辑注释：修改下方颜色变量即可一键换主题
+   ============================================================ */
+:root{
+  --bg:#FDFBFF;
+  --surface:rgba(255,255,255,0.88);
+  --surface-border:rgba(124,58,237,0.13);
+  --text-h:#1E0A3C;
+  --text-p:#4A4464;
+  --text-m:#9CA3AF;
+  --accent:#7C3AED;      /* 主紫 */
+  --accent2:#EC4899;     /* 玫粉 */
+  --accent3:#0EA5E9;     /* 天蓝 */
+  --gold:#D4A017;         /* 金奖 */
+  --grad:linear-gradient(135deg,#7C3AED 0%,#EC4899 100%);
+  --shadow:0 4px 24px rgba(124,58,237,.1);
+  --shadow-lg:0 12px 40px rgba(124,58,237,.22);
+  --r:16px; --r-lg:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);
+  color:var(--text-h);
+  overflow-x:hidden;
+}
+
+/* 固定背景光晕 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(ellipse 90% 70% at 10% 10%,rgba(124,58,237,.09),transparent 60%),
+    radial-gradient(ellipse 70% 70% at 90% 80%,rgba(236,72,153,.09),transparent 60%),
+    radial-gradient(ellipse 60% 50% at 50% -10%,rgba(14,165,233,.07),transparent 55%),
+    linear-gradient(180deg,#FDF9FF 0%,#FFF5FB 50%,#F5F9FF 100%);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(rgba(124,58,237,.07) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+
+/* ============================================================ 导航栏 */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;padding:0 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border-bottom:1px solid rgba(124,58,237,.1);
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 4px 30px rgba(124,58,237,.1)}
+
+.nav-logo{
+  font-size:1.35rem;font-weight:900;letter-spacing:-.5px;text-decoration:none;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  text-decoration:none;color:var(--text-p);font-weight:500;font-size:.9rem;
+  position:relative;transition:color .2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;
+  background:var(--grad);border-radius:2px;transform:scaleX(0);
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+/* 移动端汉堡 */
+.nav-hamburger{
+  display:none;background:none;border:none;cursor:pointer;
+  font-size:1.4rem;color:var(--accent);
+}
+@media(max-width:768px){
+  .nav-links{
+    display:none;flex-direction:column;align-items:center;gap:1.5rem;
+    position:absolute;top:68px;left:0;right:0;padding:2rem;
+    background:rgba(255,255,255,.97);border-bottom:1px solid rgba(124,58,237,.1);
+  }
+  .nav-links.open{display:flex}
+  .nav-hamburger{display:block}
+}
+
+/* ============================================================ HERO */
+#hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:100px 6% 60px;position:relative;overflow:hidden;
+}
+/* 浮动光球 */
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:orbFloat 7s ease-in-out infinite;}
+.orb1{width:520px;height:520px;background:radial-gradient(circle,rgba(124,58,237,.18),transparent);top:-100px;left:-80px;animation-delay:0s}
+.orb2{width:420px;height:420px;background:radial-gradient(circle,rgba(236,72,153,.16),transparent);bottom:-60px;right:-60px;animation-delay:3.5s}
+.orb3{width:320px;height:320px;background:radial-gradient(circle,rgba(14,165,233,.12),transparent);top:40%;left:60%;animation-delay:1.8s}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.04)}}
+
+.hero-inner{position:relative;z-index:1}
+
+/* 在线徽章 */
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);
+  border-radius:100px;padding:.4rem 1.1rem;
+  font-size:.8rem;font-weight:600;color:var(--accent);
+  margin-bottom:1.8rem;animation:fadeInDown .6s ease both;
+}
+.hero-badge .live{width:8px;height:8px;background:#22C55E;border-radius:50%;animation:pulseDot 2s ease infinite}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 7px rgba(34,197,94,0)}}
+
+/* 主标题 */
+.hero-title{
+  font-size:clamp(3rem,9.5vw,6.8rem);font-weight:900;
+  letter-spacing:-3px;line-height:1.05;
+  color:var(--text-h);
+  margin-bottom:.55rem;animation:fadeInUp .6s .1s ease both;
+  position:relative;
+}
+.hero-title em{
+  font-style:normal;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+/* 姓名副标题 */
+.hero-author{
+  font-size:clamp(.82rem,1.7vw,1.05rem);
+  font-weight:500;
+  letter-spacing:5px;
+  color:var(--text-p);
+  margin-bottom:1.3rem;
+  animation:fadeInUp .6s .15s ease both;
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+}
+.hero-author::before,.hero-author::after{
+  content:'';flex:0 0 44px;height:1px;
+  background:var(--grad);opacity:.5;
+}
+.hero-author-name{
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-weight:700;
+}
+
+/* 打字机副标题 */
+.hero-sub{
+  font-size:clamp(1.1rem,2.8vw,1.7rem);color:var(--text-p);font-weight:400;
+  margin-bottom:1.4rem;min-height:2.2rem;animation:fadeInUp .6s .2s ease both;
+}
+.typed-text{color:var(--accent2);font-weight:700}
+.cursor{display:inline-block;width:3px;height:1.1em;background:var(--accent2);vertical-align:middle;margin-left:2px;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.hero-desc{
+  max-width:540px;margin:0 auto 2.5rem;color:var(--text-m);line-height:1.85;font-size:.97rem;
+  animation:fadeInUp .6s .3s ease both;
+}
+
+.hero-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  margin-bottom:3.5rem;animation:fadeInUp .6s .4s ease both;
+}
+.btn-grad{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.88rem 2rem;background:var(--grad);color:#fff;
+  text-decoration:none;border-radius:100px;font-weight:600;font-size:.93rem;
+  box-shadow:0 5px 22px rgba(124,58,237,.38);transition:all .3s;border:none;cursor:pointer;
+}
+.btn-grad:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(124,58,237,.48)}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.88rem 2rem;background:rgba(255,255,255,.9);color:var(--accent);
+  text-decoration:none;border-radius:100px;font-weight:600;font-size:.93rem;
+  border:1.5px solid rgba(124,58,237,.3);box-shadow:var(--shadow);transition:all .3s;
+}
+.btn-outline:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow-lg)}
+
+/* 统计数字 */
+.hero-stats{
+  display:flex;gap:3rem;justify-content:center;
+  animation:fadeInUp .6s .5s ease both;
+}
+.stat-num{
+  font-size:2rem;font-weight:800;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-label{font-size:.78rem;color:var(--text-m);margin-top:.2rem}
+@media(max-width:480px){.hero-stats{gap:1.5rem}.stat-num{font-size:1.5rem}}
+
+/* ============================================================ 公共区块 */
+.section-tag{
+  display:inline-block;background:rgba(124,58,237,.1);color:var(--accent);
+  font-size:.75rem;font-weight:700;padding:.35rem 1rem;border-radius:100px;
+  letter-spacing:.8px;text-transform:uppercase;margin-bottom:.9rem;
+}
+.section-title{
+  font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;
+  color:var(--text-h);letter-spacing:-1px;
+}
+.section-title .hl{
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.section-sub{margin-top:.6rem;color:var(--text-m);font-size:.97rem}
+.section-head{text-align:center;margin-bottom:2.8rem}
+
+/* ============================================================ 代表作 SHOWREEL */
+#showreel{
+  margin:0 4% 4rem;border-radius:32px;padding:60px 5%;
+  background:linear-gradient(135deg,#18063C 0%,#2A0A52 50%,#160630 100%);
+  position:relative;overflow:hidden;
+}
+#showreel::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 15% 50%,rgba(124,58,237,.3),transparent 55%),
+    radial-gradient(ellipse at 85% 50%,rgba(236,72,153,.25),transparent 55%);
+}
+#showreel .section-tag{background:rgba(255,255,255,.15);color:rgba(255,255,255,.9)}
+#showreel .section-title{color:#fff}
+#showreel .section-sub{color:rgba(255,255,255,.55)}
+.reel-wrap{
+  max-width:880px;margin:2rem auto 0;border-radius:20px;overflow:hidden;
+  box-shadow:0 20px 70px rgba(0,0,0,.6);position:relative;
+}
+.reel-video{width:100%;aspect-ratio:16/9;display:block;background:#000}
+
+/* ============================================================ 作品集 */
+#works{padding:80px 5%}
+
+/* 分类筛选 */
+.filter-row{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.filter-btn{
+  padding:.48rem 1.25rem;border-radius:100px;font-size:.85rem;font-weight:500;cursor:pointer;
+  border:1.5px solid rgba(124,58,237,.2);background:rgba(255,255,255,.85);
+  color:var(--text-p);transition:all .3s;
+}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(124,58,237,.3)}
+
+/* 网格 */
+.works-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;
+}
+/* 隐藏筛选掉的卡片 */
+.work-card[style*="none"]{display:none!important}
+
+/* 卡片 */
+.work-card{
+  background:var(--surface);
+  border:1px solid var(--surface-border);
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .35s;
+  cursor:pointer;position:relative;
+}
+.work-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg)}
+/* 获奖角标 */
+.award-badge{
+  position:absolute;top:12px;left:12px;z-index:3;
+  background:linear-gradient(135deg,#F59E0B,#D97706);
+  color:#fff;font-size:.62rem;font-weight:800;
+  padding:.22rem .62rem;border-radius:100px;
+  letter-spacing:.3px;
+  box-shadow:0 2px 10px rgba(245,158,11,.4);
+}
+
+/* 缩略图区 */
+.thumb{
+  aspect-ratio:16/9;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#1a0a2e,#2d1b69); /* fallback 深色背景 */
+}
+/* 封面图片 */
+.thumb-bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:transform .55s cubic-bezier(.4,0,.2,1),opacity .4s;
+  opacity:.92;
+}
+.work-card:hover .thumb-bg{transform:scale(1.08);opacity:1}
+/* 暗色叠加层，让文字更清晰 */
+.thumb-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.35) 100%);
+  pointer-events:none;z-index:1;
+}
+.thumb-cat{
+  position:absolute;top:10px;right:10px;z-index:2;
+  background:rgba(255,255,255,.92);color:var(--text-h);
+  font-size:.68rem;font-weight:700;padding:.22rem .7rem;border-radius:100px;
+  backdrop-filter:blur(6px);
+}
+/* 播放遮罩 */
+.play-mask{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0);transition:background .3s;
+}
+.work-card:hover .play-mask{background:rgba(0,0,0,.25)}
+.play-circle{
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.95);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;color:var(--accent);
+  box-shadow:0 4px 20px rgba(0,0,0,.25);
+  transition:transform .3s,box-shadow .3s;
+}
+.work-card:hover .play-circle{transform:scale(1.12);box-shadow:0 6px 28px rgba(0,0,0,.35)}
+
+/* 卡片信息 */
+.card-info{padding:1.2rem}
+.card-title{font-size:.98rem;font-weight:700;color:var(--text-h);margin-bottom:.35rem}
+.card-desc{font-size:.8rem;color:var(--text-m);line-height:1.6}
+.card-tags{display:flex;gap:.4rem;margin-top:.7rem;flex-wrap:wrap}
+.card-tag{
+  background:rgba(124,58,237,.08);color:var(--accent);
+  font-size:.68rem;font-weight:600;padding:.2rem .6rem;border-radius:100px;
+}
+
+/* 各分类配色 */
+.cat-cj{background:linear-gradient(135deg,#6D28D9,#A855F7)}   /* 创意剪辑 - 紫 */
+.cat-xc{background:linear-gradient(135deg,#0369A1,#38BDF8)}   /* 宣传片 - 蓝 */
+.cat-jd{background:linear-gradient(135deg,#92400E,#F59E0B)}   /* 节目导视 - 琥珀 */
+.cat-zm{background:linear-gradient(135deg,#9D174D,#F43F5E)}   /* 字幕特效 - 玫红 */
+.cat-wy{background:linear-gradient(135deg,#065F46,#10B981)}   /* 位移特效 - 翠绿 */
+.cat-js{background:linear-gradient(135deg,#7C3AED,#EC4899)}   /* 竞赛作品 - 紫粉 */
+
+/* ============================================================ 竞赛荣誉板块 */
+#honors{
+  padding:80px 5%;
+  background:linear-gradient(180deg,#FFF9FB 0%,#FDFBFF 50%,#F5F0FF 100%);
+}
+.honor-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;
+  margin-top:2.2rem;
+}
+.honor-card{
+  background:var(--surface);border:1px solid var(--surface-border);
+  border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform .38s,box-shadow .38s;
+  display:flex;flex-direction:column;
+}
+.honor-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.honor-cover{
+  aspect-ratio:16/9;overflow:hidden;position:relative;
+}
+.honor-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.honor-card:hover .honor-cover img{transform:scale(1.06)}
+.honor-award{
+  position:absolute;top:12px;right:12px;
+  background:linear-gradient(135deg,#F59E0B,#D97706);
+  color:#fff;font-size:.68rem;font-weight:800;
+  padding:.3rem .75rem;border-radius:100px;
+  box-shadow:0 2px 12px rgba(245,158,11,.45);
+  display:flex;align-items:center;gap:.35rem;
+}
+.honor-body{padding:1.3rem;flex:1;display:flex;flex-direction:column;gap:.6rem}
+.honor-title{font-size:1.05rem;font-weight:800;color:var(--text-h)}
+.honor-meta{font-size:.82rem;color:var(--text-m);line-height:1.6}
+.honor-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto;padding-top:.5rem}
+.honor-tag{
+  background:rgba(124,58,237,.08);color:var(--accent);
+  font-size:.65rem;font-weight:700;padding:.2rem .65rem;border-radius:100px;
+}
+
+/* 证书展示 */
+.cert-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.3rem;
+  margin-top:2.5rem;
+}
+.cert-card{
+  background:var(--surface);border:1px solid var(--surface-border);
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform .35s,box-shadow .35s;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;
+}
+.cert-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:var(--shadow-lg)}
+.cert-card img{
+  width:100%;aspect-ratio:4/3;object-fit:cover;display:block;
+}
+.cert-caption{
+  padding:.9rem 1rem;text-align:center;width:100%;
+}
+.cert-name{font-size:.85rem;font-weight:700;color:var(--text-h)}
+.cert-issuer{font-size:.72rem;color:var(--text-m);margin-top:.25rem}
+
+/* ============================================================ 作品关键帧展示 */
+#kf-section{
+  padding:80px 5%;
+  background:linear-gradient(180deg,#FDFBFF 0%,#F5F0FF 50%,#FDFBFF 100%);
+}
+.kf-grid{
+  column-count:3;column-gap:1.1rem;margin-top:2.2rem;
+}
+@media(max-width:960px){.kf-grid{column-count:2}}
+@media(max-width:540px){.kf-grid{column-count:1}}
+.kf-item{
+  break-inside:avoid;margin-bottom:1.1rem;
+  border-radius:var(--r);overflow:hidden;
+  position:relative;background:#1a0a2e;
+  box-shadow:var(--shadow);
+  transition:transform .38s cubic-bezier(.4,0,.2,1),box-shadow .38s;
+  cursor:pointer;
+}
+.kf-item:hover{transform:translateY(-8px) scale(1.025);box-shadow:0 20px 50px rgba(124,58,237,.28)}
+.kf-item img{
+  width:100%;display:block;
+  transition:transform .55s ease,opacity .4s;
+  opacity:.88;
+}
+.kf-item:hover img{transform:scale(1.08);opacity:1}
+.kf-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent 0%,rgba(15,5,40,.82) 100%);
+  padding:.9rem 1rem 1rem;
+  transform:translateY(5px);transition:transform .35s;
+}
+.kf-item:hover .kf-caption{transform:translateY(0)}
+.kf-cap-cat{
+  font-size:.65rem;color:rgba(255,255,255,.55);
+  font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.25rem;
+}
+.kf-cap-title{font-size:.88rem;font-weight:700;color:#fff;line-height:1.3}
+.kf-badge{
+  position:absolute;top:.75rem;right:.75rem;
+  background:rgba(255,255,255,.16);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.22);
+  padding:.18rem .62rem;border-radius:100px;
+  font-size:.62rem;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.6px;
+}
+
+/* ============================================================ 技能 */
+#skills{
+  margin:0 4% 4rem;border-radius:32px;padding:60px 5%;
+  background:linear-gradient(135deg,rgba(124,58,237,.05),rgba(236,72,153,.05));
+  border:1px solid rgba(124,58,237,.08);
+}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-top:2rem}
+.skill-card{
+  background:var(--surface);border:1px solid var(--surface-border);
+  border-radius:var(--r);padding:1.4rem;
+  box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;
+}
+.skill-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.skill-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+.skill-name-wrap{display:flex;align-items:center;gap:.6rem}
+.skill-ico{
+  width:30px;height:30px;border-radius:8px;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;color:#fff;
+}
+.skill-name{font-size:.9rem;font-weight:600;color:var(--text-h)}
+.skill-pct{font-size:.88rem;font-weight:700;color:var(--accent)}
+.skill-track{height:7px;background:rgba(124,58,237,.1);border-radius:100px;overflow:hidden}
+.skill-fill{
+  height:100%;border-radius:100px;background:var(--grad);
+  width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1);
+}
+
+/* ============================================================ 关于我 */
+#about{padding:80px 5%}
+.about-wrap{
+  display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:center;
+  max-width:1000px;margin:0 auto;
+}
+.about-img{
+  border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  aspect-ratio:1;
+  position:relative;
+}
+.about-img img{width:100%;height:100%;object-fit:cover;display:block}
+.about-img-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,#7C3AED20,#EC489920);
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;color:rgba(124,58,237,.3);
+}
+.about-img::after{
+  content:'';position:absolute;inset:-8px;border-radius:28px;
+  background:var(--grad);z-index:-1;filter:blur(24px);opacity:.18;
+}
+.about-tag-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.about-tag{
+  background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.18);
+  color:var(--accent);padding:.38rem 1rem;border-radius:100px;
+  font-size:.82rem;font-weight:500;
+}
+@media(max-width:768px){.about-wrap{grid-template-columns:1fr;gap:2rem}}
+
+/* ============================================================ 经历时间线 */
+#timeline{padding:80px 5%}
+.tl-wrap{max-width:720px;margin:2rem auto 0;position:relative}
+.tl-wrap::before{
+  content:'';position:absolute;left:18px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));
+  border-radius:2px;
+}
+.tl-item{
+  position:relative;padding-left:56px;margin-bottom:2.2rem;
+  opacity:0;transform:translateY(24px);transition:all .6s ease;
+}
+.tl-item.in{opacity:1;transform:translateY(0)}
+.tl-dot{
+  position:absolute;left:9px;top:4px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--grad);border:3px solid #fff;
+  box-shadow:0 0 0 3px rgba(124,58,237,.25);
+  z-index:1;
+}
+.tl-date{font-size:.72rem;color:var(--accent);font-weight:700;letter-spacing:.5px;margin-bottom:.3rem}
+.tl-title{font-size:1rem;font-weight:800;color:var(--text-h);margin-bottom:.3rem}
+.tl-desc{font-size:.84rem;color:var(--text-m);line-height:1.7}
+
+/* ============================================================ 联系 */
+#contact{padding:80px 5%;text-align:center}
+.contact-grid{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem}
+.contact-card{
+  background:var(--surface);border:1px solid var(--surface-border);
+  border-radius:var(--r);padding:1.75rem 2rem;min-width:160px;
+  box-shadow:var(--shadow);transition:all .3s;
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  text-decoration:none;
+}
+.contact-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.contact-ico{
+  width:48px;height:48px;border-radius:14px;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;color:#fff;
+}
+.contact-lbl{font-size:.75rem;color:var(--text-m);font-weight:500}
+.contact-val{font-size:.88rem;font-weight:700;color:var(--text-h)}
+
+/* ============================================================ 视频弹窗 */
+.modal-bg{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(10,0,25,.85);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal-box{
+  background:#fff;border-radius:var(--r-lg);overflow:hidden;
+  max-width:880px;width:100%;
+  box-shadow:0 30px 80px rgba(0,0,0,.55);
+  transform:scale(.88);transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.modal-bg.open .modal-box{transform:scale(1)}
+.modal-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.4rem;border-bottom:1px solid rgba(124,58,237,.1);
+}
+.modal-ttl{font-size:1rem;font-weight:700;color:var(--text-h)}
+.modal-close{
+  width:30px;height:30px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(124,58,237,.1);color:var(--accent);font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.modal-close:hover{background:var(--accent);color:#fff}
+.modal-vid{width:100%;aspect-ratio:16/9;display:block;background:#000}
+
+/* ============================================================ Footer */
+footer{
+  text-align:center;padding:2rem;
+  border-top:1px solid rgba(124,58,237,.1);
+  color:var(--text-m);font-size:.83rem;
+}
+footer .gd{
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-weight:800;
+}
+
+/* ============================================================ 鼠标光晕 */
+.mouse-glow{
+  position:fixed;pointer-events:none;z-index:0;
+  width:360px;height:360px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.07),transparent 65%);
+  transform:translate(-50%,-50%);transition:opacity .3s;
+}
+
+/* ============================================================ 滚动动画 */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* ============================================================ 关键帧展示板块 CSS */
+/* (已在上方关键帧区块中定义) */
+
+/* 动画关键帧 */
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- 鼠标跟随光晕 -->
+<div class="mouse-glow" id="mouseGlow"></div>
+
+<!-- ======================================================= NAV -->
+<nav id="mainNav">
+  <!-- ★ 可编辑：Logo 文字 -->
+  <a href="#" class="nav-logo">HBQ · Portfolio</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#showreel">代表作</a></li>
+    <li><a href="#works">作品集</a></li>
+    <li><a href="#honors">竞赛荣誉</a></li>
+    <li><a href="#kf-section">关键帧</a></li>
+    <li><a href="#skills">技能</a></li>
+    <li><a href="#timeline">经历</a></li>
+    <li><a href="#about">关于我</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="toggleNav()"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- ======================================================= HERO -->
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="live"></span>西北民族大学 · 新闻学</div>
+
+    <!-- 主标题 -->
+    <h1 class="hero-title">我的<em>作品集</em></h1>
+    <!-- 姓名副标题 -->
+    <div class="hero-author">
+      <span class="hero-author-name">黄&ensp;宝&ensp;晴</span>
+    </div>
+
+    <!-- 打字机区域 -->
+    <p class="hero-sub">
+      <span class="typed-text" id="typedEl"></span><span class="cursor"></span>
+    </p>
+
+    <!-- 简介文案 -->
+    <p class="hero-desc">
+      学号 P231014739 · 中共党员 · 壮族<br>
+      用镜头记录生活，用剪辑讲述故事
+    </p>
+
+    <div class="hero-btns">
+      <a href="#works" class="btn-grad"><i class="fas fa-play"></i> 查看作品</a>
+      <a href="#honors" class="btn-outline"><i class="fas fa-trophy"></i> 竞赛荣誉</a>
+    </div>
+
+    <!-- 统计数字 -->
+    <div class="hero-stats">
+      <div><div class="stat-num">14+</div><div class="stat-label">视频作品</div></div>
+      <div><div class="stat-num">5项</div><div class="stat-label">竞赛获奖</div></div>
+      <div><div class="stat-num">2023级</div><div class="stat-label">新闻学本科</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= 代表作 SHOWREEL -->
+<div id="showreel">
+  <div class="section-head reveal">
+    <div class="section-tag">SHOWREEL</div>
+    <h2 class="section-title" style="color:#fff">作品集 <span style="-webkit-text-fill-color:transparent;background:linear-gradient(135deg,#C084FC,#F9A8D4);-webkit-background-clip:text;background-clip:text">混剪</span></h2>
+    <p class="section-sub">汇聚所有创作精华，感受剪辑的魅力</p>
+  </div>
+  <div class="reel-wrap reveal">
+    <!-- 视频路径：作品集混剪 -->
+    <video class="reel-video" controls preload="metadata"
+      poster="作品集混剪/P231014739黄宝晴+作品集混剪-封面.jpg">
+      <source src="作品集混剪/P231014739黄宝晴+作品集混剪.mp4" type="video/mp4">
+      您的浏览器不支持视频播放。
+    </video>
+  </div>
+</div>
+
+<!-- ======================================================= 作品集 -->
+<section id="works">
+  <div class="section-head reveal">
+    <div class="section-tag">WORKS</div>
+    <h2 class="section-title">视频 <span class="hl">作品集</span></h2>
+    <p class="section-sub">非线性编辑课程 · 14个作品 · 5大创作领域</p>
+  </div>
+
+  <!-- 分类筛选 -->
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterWorks('all',this)">全部</button>
+    <button class="filter-btn" onclick="filterWorks('创意剪辑',this)">🟣 创意剪辑</button>
+    <button class="filter-btn" onclick="filterWorks('宣传片',this)">🔵 宣传片</button>
+    <button class="filter-btn" onclick="filterWorks('节目导视',this)">🟡 节目导视</button>
+    <button class="filter-btn" onclick="filterWorks('字幕特效',this)">🩷 字幕特效</button>
+    <button class="filter-btn" onclick="filterWorks('位移特效',this)">🟢 位移特效</button>
+  </div>
+
+  <div class="works-grid">
+
+    <!-- 1. 被偷走的目光（最高奖） -->
+    <div class="work-card reveal" data-cat="创意剪辑"
+      data-id="stolen-gaze"
+      data-title="《被偷走的目光》">
+      <div class="award-badge"><i class="fas fa-trophy"></i> 校赛一等奖</div>
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_stolen_gaze.png" alt="被偷走的目光封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">创意剪辑</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">《被偷走的目光》</div>
+        <div class="card-desc">期末综合大作业 · 未来设计师校赛一等奖</div>
+        <div class="card-tags">
+          <span class="card-tag">Premiere Pro</span>
+          <span class="card-tag">叙事剪辑</span>
+          <span class="card-tag">🏆 一等奖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 圆楼纪（省级二等奖） -->
+    <div class="work-card reveal" data-cat="宣传片"
+      data-id="yuanlouji"
+      data-title="《圆楼纪》">
+      <div class="award-badge"><i class="fas fa-award"></i> 省级二等奖</div>
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_yuanlouji.png" alt="圆楼纪封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">宣传片</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">《圆楼纪》</div>
+        <div class="card-desc">期中综合实践 · 全国计算机设计大赛省级二等奖</div>
+        <div class="card-tags">
+          <span class="card-tag">Premiere Pro</span>
+          <span class="card-tag">宣传片</span>
+          <span class="card-tag">🏅 二等奖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 春夏秋冬 -->
+    <div class="work-card reveal" data-cat="创意剪辑"
+      data-video="春夏秋冬视频作业/P231014739黄宝晴+春夏秋冬创意视频.mp4"
+      data-title="春夏秋冬创意视频">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_seasons.jpg" alt="春夏秋冬封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">创意剪辑</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">春夏秋冬创意视频</div>
+        <div class="card-desc">四季主题创意剪辑 · 色调和情绪设计</div>
+        <div class="card-tags">
+          <span class="card-tag">季节主题</span>
+          <span class="card-tag">色彩设计</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 绿幕抠像 -->
+    <div class="work-card reveal" data-cat="创意剪辑"
+      data-video="绿幕抠像创意作业/P231014739黄宝晴+创意抠像.mp4"
+      data-title="绿幕抠像创意视频">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_green_screen.png" alt="绿幕抠像封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">创意剪辑</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">绿幕抠像创意视频</div>
+        <div class="card-desc">Chroma Key 关键技术实践</div>
+        <div class="card-tags">
+          <span class="card-tag">绿幕抠像</span>
+          <span class="card-tag">合成特效</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 画轴展开 -->
+    <div class="work-card reveal" data-cat="创意剪辑"
+      data-video="画轴动态制作作业/P231014739黄宝晴+画轴展开.mp4"
+      data-title="画轴动态展开">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_scroll.png" alt="画轴展开封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">创意剪辑</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">画轴动态展开</div>
+        <div class="card-desc">关键帧动画 · 中国传统画轴效果</div>
+        <div class="card-tags">
+          <span class="card-tag">关键帧</span>
+          <span class="card-tag">中国风</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 城市宣传片 -->
+    <div class="work-card reveal" data-cat="宣传片"
+      data-video="城市宣传视频作业/P231014739黄宝晴+城市宣传视频制作.mp4"
+      data-title="城市宣传视频">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_city.png" alt="城市宣传封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">宣传片</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">城市宣传视频</div>
+        <div class="card-desc">城市形象宣传 · 镜头语言与节奏把控</div>
+        <div class="card-tags">
+          <span class="card-tag">城市宣传</span>
+          <span class="card-tag">镜头语言</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 我会等 -->
+    <div class="work-card reveal" data-cat="宣传片"
+      data-video="我会等宣传视频作业/P231014739黄宝晴+我会等视频剪辑.mp4"
+      data-title="《我会等》宣传视频">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_wait.png" alt="我会等封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">宣传片</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">《我会等》宣传视频</div>
+        <div class="card-desc">音乐MV风格 · 节奏剪辑</div>
+        <div class="card-tags">
+          <span class="card-tag">MV风格</span>
+          <span class="card-tag">音乐剪辑</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. AI眼中的广西（路径含特殊字符，用 JS 处理） -->
+    <div class="work-card reveal" data-cat="宣传片" data-id="ai-guangxi"
+      data-title="AI眼中的"广西"">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_ai_guangxi.png" alt="AI广西封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">宣传片</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">AI眼中的"广西"</div>
+        <div class="card-desc">AIGC + 传统剪辑融合创作</div>
+        <div class="card-tags">
+          <span class="card-tag">AIGC</span>
+          <span class="card-tag">创新创作</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 节目导视（一）-->
+    <div class="work-card reveal" data-cat="节目导视"
+      data-video="节目导视作业1/P231014739黄宝晴+节目导视（一）.mp4"
+      data-title="节目导视（一）">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_program.png" alt="节目导视（一）封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">节目导视</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">节目导视（一）</div>
+        <div class="card-desc">节目包装基础 · 导视片设计</div>
+        <div class="card-tags">
+          <span class="card-tag">节目包装</span>
+          <span class="card-tag">导视设计</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. 节目导视（二）渐变 -->
+    <div class="work-card reveal" data-cat="节目导视"
+      data-video="节目导视2渐变作业/P231014739黄宝晴+节目导视（二）.mp4"
+      data-title="节目导视（二）渐变版">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_program.png" alt="节目导视（二）封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">节目导视</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">节目导视（二）渐变版</div>
+        <div class="card-desc">渐变过渡效果 · 进阶节目包装</div>
+        <div class="card-tags">
+          <span class="card-tag">渐变特效</span>
+          <span class="card-tag">节目包装</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. HOT KTV -->
+    <div class="work-card reveal" data-cat="字幕特效"
+      data-video="MV字幕KTV版视频效果/P231014739黄宝晴 《HOT》KTV版.mp4"
+      data-title="《HOT》MV字幕KTV版">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_ktv.png" alt="HOT KTV封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">字幕特效</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">《HOT》MV字幕KTV版</div>
+        <div class="card-desc">KTV逐字高亮字幕效果</div>
+        <div class="card-tags">
+          <span class="card-tag">KTV字幕</span>
+          <span class="card-tag">逐字高亮</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. 读书推荐字幕条 -->
+    <div class="work-card reveal" data-cat="字幕特效"
+      data-video="书籍推荐字幕条作业/P231014739黄宝晴+读书推荐字幕条.mp4"
+      data-title="读书推荐字幕条">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_subtitle.png" alt="读书推荐字幕条封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">字幕特效</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">读书推荐字幕条</div>
+        <div class="card-desc">Lower Third 字幕条设计</div>
+        <div class="card-tags">
+          <span class="card-tag">字幕条</span>
+          <span class="card-tag">包装设计</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. 字幕逐字出现 -->
+    <div class="work-card reveal" data-cat="字幕特效"
+      data-video="字幕逐字出现效果作业/P231014739黄宝晴+字幕逐字出现mp4.mp4"
+      data-poster="字幕逐字出现效果作业/作业关键帧.png"
+      data-title="字幕逐字出现效果">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_caption.png" alt="字幕逐字出现封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">字幕特效</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">字幕逐字出现效果</div>
+        <div class="card-desc">逐字打字机效果 · 关键帧动画</div>
+        <div class="card-tags">
+          <span class="card-tag">逐字动画</span>
+          <span class="card-tag">关键帧</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. 单图位移 -->
+    <div class="work-card reveal" data-cat="位移特效"
+      data-video="单图位移作业/P231014739黄宝晴+单图位移.mp4"
+      data-title="单图位移关键帧动画">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_singlemove.jpg" alt="单图位移封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">位移特效</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">单图位移关键帧动画</div>
+        <div class="card-desc">Position 关键帧 · 平滑动画曲线</div>
+        <div class="card-tags">
+          <span class="card-tag">Position</span>
+          <span class="card-tag">动画曲线</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. 多图位移 -->
+    <div class="work-card reveal" data-cat="位移特效"
+      data-video="多图位移作业/P231014739黄宝晴+多图位移.mp4"
+      data-title="多图位移关键帧动画">
+      <div class="thumb">
+        <img class="thumb-bg" src="covers/cover_multimove.png" alt="多图位移封面" onerror="this.style.opacity='0'">
+        <div class="thumb-overlay"></div>
+        <span class="thumb-cat">位移特效</span>
+      </div>
+      <div class="play-mask"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+      <div class="card-info">
+        <div class="card-title">多图位移关键帧动画</div>
+        <div class="card-desc">多图层协同动画 · 综合关键帧</div>
+        <div class="card-tags">
+          <span class="card-tag">多图层</span>
+          <span class="card-tag">综合动画</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /works-grid -->
+</section>
+
+<!-- ======================================================= 竞赛荣誉 -->
+<section id="honors">
+  <div class="section-head reveal">
+    <div class="section-tag">HONORS</div>
+    <h2 class="section-title">竞赛 <span class="hl">荣誉</span></h2>
+    <p class="section-sub">以赛促学 · 用作品说话 · 5项省级以上荣誉</p>
+  </div>
+
+  <div class="honor-grid reveal">
+
+    <!-- 1. 圆楼纪 -->
+    <div class="honor-card">
+      <div class="honor-cover">
+        <img src="competition/yuanlouji_cover.jpg" alt="圆楼纪封面"
+          onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#6D28D9,#A855F7)';this.parentNode.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:2.5rem&quot;><i class=&quot;fas fa-film&quot;></i></div>'">
+        <div class="honor-award"><i class="fas fa-medal"></i> 省级二等奖</div>
+      </div>
+      <div class="honor-body">
+        <div class="honor-title">《圆楼纪》</div>
+        <div class="honor-meta">期中综合实践作业 · 全国计算机设计大赛<br>省级二等奖</div>
+        <div class="honor-tags">
+          <span class="honor-tag">计算机设计大赛</span>
+          <span class="honor-tag">纪录片</span>
+          <span class="honor-tag">省级二等奖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 被偷走的目光 -->
+    <div class="honor-card">
+      <div class="honor-cover">
+        <img src="competition/stolen_gaze_poster.png" alt="被偷走的目光海报"
+          onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#9D174D,#F43F5E)';this.parentNode.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:2.5rem&quot;><i class=&quot;fas fa-eye&quot;></i></div>'">
+        <div class="honor-award"><i class="fas fa-trophy"></i> 校赛一等奖</div>
+      </div>
+      <div class="honor-body">
+        <div class="honor-title">《被偷走的目光》</div>
+        <div class="honor-meta">期末代表作 · 全国未来设计师大赛<br>校赛一等奖</div>
+        <div class="honor-tags">
+          <span class="honor-tag">未来设计师</span>
+          <span class="honor-tag">叙事短片</span>
+          <span class="honor-tag">校赛一等奖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 竹嬉木语 -->
+    <div class="honor-card">
+      <div class="honor-cover">
+        <img src="competition/zhuximuyu_poster.jpg" alt="竹嬉木语海报"
+          onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#065F46,#10B981)';this.parentNode.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:2.5rem&quot;><i class=&quot;fas fa-tree&quot;></i></div>'">
+        <div class="honor-award"><i class="fas fa-award"></i> 校赛三等奖</div>
+      </div>
+      <div class="honor-body">
+        <div class="honor-title">《竹嬉木语》</div>
+        <div class="honor-meta">信息可视化作品 · 全国未来设计师大赛<br>校赛三等奖</div>
+        <div class="honor-tags">
+          <span class="honor-tag">未来设计师</span>
+          <span class="honor-tag">信息可视化</span>
+          <span class="honor-tag">校赛三等奖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 寰宇神兽 -->
+    <div class="honor-card">
+      <div class="honor-cover">
+        <img src="competition/huanyu_shenshou.png" alt="寰宇神兽作品全览"
+          onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0369A1,#38BDF8)';this.parentNode.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:2.5rem&quot;><i class=&quot;fas fa-dragon&quot;></i></div>'">
+        <div class="honor-award"><i class="fas fa-star"></i> 好创意作品</div>
+      </div>
+      <div class="honor-body">
+        <div class="honor-title">《寰宇神兽》</div>
+        <div class="honor-meta">2026年好创意作品 · 中国传统文化IP设计<br>四神兽文创设计</div>
+        <div class="honor-tags">
+          <span class="honor-tag">好创意大赛</span>
+          <span class="honor-tag">IP设计</span>
+          <span class="honor-tag">传统文化</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 甘肃省IP形象设计 -->
+    <div class="honor-card">
+      <div class="honor-cover">
+        <img src="competition/gansu_ip.png" alt="甘肃省IP形象设计"
+          onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#92400E,#F59E0B)';this.parentNode.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:2.5rem&quot;><i class=&quot;fas fa-palette&quot;></i></div>'">
+        <div class="honor-award"><i class="fas fa-paint-brush"></i> 省级三等奖</div>
+      </div>
+      <div class="honor-body">
+        <div class="honor-title">甘肃省文旅IP形象设计</div>
+        <div class="honor-meta">2025年甘肃省IP形象设计大赛<br>省级三等奖</div>
+        <div class="honor-tags">
+          <span class="honor-tag">IP设计</span>
+          <span class="honor-tag">文旅创意</span>
+          <span class="honor-tag">省级三等奖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 漫画"我是自己的光" -->
+    <div class="honor-card">
+      <div class="honor-cover">
+        <img src="competition/comic_light.jpg" alt="我是自己的光"
+          onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#7C3AED,#EC4899)';this.parentNode.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:2.5rem&quot;><i class=&quot;fas fa-book-open&quot;></i></div>'">
+        <div class="honor-award"><i class="fas fa-pen-nib"></i> 海报设计</div>
+      </div>
+      <div class="honor-body">
+        <div class="honor-title">《我是自己的光》</div>
+        <div class="honor-meta">漫画海报设计比赛 · 原创漫画+海报设计<br>心理健康主题</div>
+        <div class="honor-tags">
+          <span class="honor-tag">海报设计</span>
+          <span class="honor-tag">漫画创作</span>
+          <span class="honor-tag">心理健康</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /honor-grid -->
+
+  <!-- 证书展示 -->
+  <div class="section-head reveal" style="margin-top:4rem">
+    <div class="section-tag">CERTIFICATES</div>
+    <h2 class="section-title">荣誉 <span class="hl">证书</span></h2>
+    <p class="section-sub">部分代表性证书展示</p>
+  </div>
+  <div class="cert-grid reveal">
+    <div class="cert-card" onclick="openCertModal('certificates/cert_1.png')">
+      <img src="certificates/cert_1.png" alt="荣誉证书"
+        onerror="this.parentNode.innerHTML='<div style=&quot;padding:2rem;text-align:center;color:var(--text-m)&quot;>证书图片加载中…</div>'">
+      <div class="cert-caption">
+        <div class="cert-name">荣誉证书</div>
+        <div class="cert-issuer">荣誉证书（我的简历）· 2023-2026</div>
+      </div>
+    </div>
+    <!-- 可继续添加更多证书卡片 -->
+  </div>
+
+</section>
+
+<!-- ======================================================= 作品关键帧展示 -->
+<section id="kf-section">
+  <div class="section-head reveal">
+    <div class="section-tag">KEYFRAMES</div>
+    <h2 class="section-title">作品 <span class="hl">关键帧</span></h2>
+    <p class="section-sub">每一帧都是创作的印记 · 用静态定格动态之美</p>
+  </div>
+  <div class="kf-grid reveal">
+
+    <!-- 1. 多图位移关键帧 -->
+    <div class="kf-item">
+      <span class="kf-badge">位移特效</span>
+      <img src="多图位移作业/多图位移关键帧.png" alt="多图位移关键帧"
+        onerror="this.style.background='linear-gradient(135deg,#065F46,#10B981)';this.style.minHeight='160px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Position Animation</div>
+        <div class="kf-cap-title">多图位移关键帧动画</div>
+      </div>
+    </div>
+
+    <!-- 2. 字幕逐字出现 -->
+    <div class="kf-item">
+      <span class="kf-badge">字幕特效</span>
+      <img src="字幕逐字出现效果作业/作业关键帧.png" alt="字幕逐字出现关键帧"
+        onerror="this.style.background='linear-gradient(135deg,#9D174D,#F43F5E)';this.style.minHeight='160px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Caption Effect</div>
+        <div class="kf-cap-title">字幕逐字出现效果</div>
+      </div>
+    </div>
+
+    <!-- 3. 单图位移 -->
+    <div class="kf-item">
+      <span class="kf-badge">位移特效</span>
+      <img src="单图位移作业/P231014739黄宝晴 关键帧.jpg" alt="单图位移关键帧"
+        onerror="this.style.background='linear-gradient(135deg,#065F46,#10B981)';this.style.minHeight='160px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Keyframe Motion</div>
+        <div class="kf-cap-title">单图位移关键帧动画</div>
+      </div>
+    </div>
+
+    <!-- 4. 节目导视渐变 -->
+    <div class="kf-item">
+      <span class="kf-badge">节目导视</span>
+      <img src="节目导视渐变作业/节目导视渐变.png" alt="节目导视渐变"
+        onerror="this.style.background='linear-gradient(135deg,#92400E,#F59E0B)';this.style.minHeight='160px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Program Guide</div>
+        <div class="kf-cap-title">节目导视（二）渐变版</div>
+      </div>
+    </div>
+
+    <!-- 5. 人物字幕条 -->
+    <div class="kf-item">
+      <span class="kf-badge">字幕特效</span>
+      <img src="书籍推荐字幕条作业/人物字幕条.png" alt="人物字幕条"
+        onerror="this.style.background='linear-gradient(135deg,#9D174D,#F43F5E)';this.style.minHeight='140px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Lower Third</div>
+        <div class="kf-cap-title">人物字幕条</div>
+      </div>
+    </div>
+
+    <!-- 6. 弗利字幕条 -->
+    <div class="kf-item">
+      <span class="kf-badge">字幕特效</span>
+      <img src="书籍推荐字幕条作业/左一弗利字幕条.png" alt="弗利字幕条"
+        onerror="this.style.background='linear-gradient(135deg,#9D174D,#F43F5E)';this.style.minHeight='120px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Lower Third</div>
+        <div class="kf-cap-title">读书推荐字幕条</div>
+      </div>
+    </div>
+
+    <!-- 7. 春 -->
+    <div class="kf-item">
+      <span class="kf-badge">春夏秋冬</span>
+      <img src="春夏秋冬视频作业/春天素材合集/春5.jpg" alt="春天素材"
+        onerror="this.style.background='linear-gradient(135deg,#6D28D9,#A855F7)';this.style.minHeight='180px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Four Seasons · Spring</div>
+        <div class="kf-cap-title">春 · 生机萌发</div>
+      </div>
+    </div>
+
+    <!-- 8. 夏 -->
+    <div class="kf-item">
+      <span class="kf-badge">春夏秋冬</span>
+      <img src="春夏秋冬视频作业/夏天素材合集/夏1.jpg" alt="夏天素材"
+        onerror="this.style.background='linear-gradient(135deg,#0369A1,#38BDF8)';this.style.minHeight='180px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Four Seasons · Summer</div>
+        <div class="kf-cap-title">夏 · 烈日流火</div>
+      </div>
+    </div>
+
+    <!-- 9. 秋 -->
+    <div class="kf-item">
+      <span class="kf-badge">春夏秋冬</span>
+      <img src="春夏秋冬视频作业/秋天素材合集/秋2.jpg" alt="秋天素材"
+        onerror="this.style.background='linear-gradient(135deg,#92400E,#F59E0B)';this.style.minHeight='180px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Four Seasons · Autumn</div>
+        <div class="kf-cap-title">秋 · 金叶纷飞</div>
+      </div>
+    </div>
+
+    <!-- 10. 冬 -->
+    <div class="kf-item">
+      <span class="kf-badge">春夏秋冬</span>
+      <img src="春夏秋冬视频作业/冬天素材合集/冬4.jpg" alt="冬天素材"
+        onerror="this.style.background='linear-gradient(135deg,#1E3A5F,#60A5FA)';this.style.minHeight='180px'">
+      <div class="kf-caption">
+        <div class="kf-cap-cat">Four Seasons · Winter</div>
+        <div class="kf-cap-title">冬 · 银白静寂</div>
+      </div>
+    </div>
+
+  </div><!-- /kf-grid -->
+</section>
+
+<!-- ======================================================= 技能 -->
+<div id="skills">
+  <div class="section-head reveal">
+    <div class="section-tag">SKILLS</div>
+    <h2 class="section-title">专业 <span class="hl">技能</span></h2>
+    <p class="section-sub">非线性编辑与视频创作核心能力</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-row">
+        <div class="skill-name-wrap"><div class="skill-ico"><i class="fas fa-film"></i></div><span class="skill-name">Adobe Premiere Pro</span></div>
+        <span class="skill-pct">90%</span>
+      </div>
+      <div class="skill-track"><div class="skill-fill" data-pct="90"></div></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-row">
+        <div class="skill-name-wrap"><div class="skill-ico"><i class="fas fa-photo-video"></i></div><span class="skill-name">视频剪辑与叙事</span></div>
+        <span class="skill-pct">88%</span>
+      </div>
+      <div class="skill-track"><div class="skill-fill" data-pct="88"></div></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-row">
+        <div class="skill-name-wrap"><div class="skill-ico"><i class="fas fa-closed-captioning"></i></div><span class="skill-name">字幕特效制作</span></div>
+        <span class="skill-pct">85%</span>
+      </div>
+      <div class="skill-track"><div class="skill-fill" data-pct="85"></div></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-row">
+        <div class="skill-name-wrap"><div class="skill-ico"><i class="fas fa-layer-group"></i></div><span class="skill-name">关键帧动画</span></div>
+        <span class="skill-pct">82%</span>
+      </div>
+      <div class="skill-track"><div class="skill-fill" data-pct="82"></div></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-row">
+        <div class="skill-name-wrap"><div class="skill-ico"><i class="fas fa-tv"></i></div><span class="skill-name">节目包装设计</span></div>
+        <span class="skill-pct">78%</span>
+      </div>
+      <div class="skill-track"><div class="skill-fill" data-pct="78"></div></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-row">
+        <div class="skill-name-wrap"><div class="skill-ico"><i class="fas fa-robot"></i></div><span class="skill-name">AIGC 内容创作</span></div>
+        <span class="skill-pct">75%</span>
+      </div>
+      <div class="skill-track"><div class="skill-fill" data-pct="75"></div></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-row">
+        <div class="skill-name-wrap"><div class="skill-ico"><i class="fas fa-palette"></i></div><span class="skill-name">Photoshop 平面设计</span></div>
+        <span class="skill-pct">80%</span>
+      </div>
+      <div class="skill-track"><div class="skill-fill" data-pct="80"></div></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-row">
+        <div class="skill-name-wrap"><div class="skill-ico"><i class="fas fa-newspaper"></i></div><span class="skill-name">新媒体运营</span></div>
+        <span class="skill-pct">76%</span>
+      </div>
+      <div class="skill-track"><div class="skill-fill" data-pct="76"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================= 关于我 -->
+<section id="about">
+  <div class="section-head reveal">
+    <div class="section-tag">ABOUT</div>
+    <h2 class="section-title">关于 <span class="hl">我</span></h2>
+  </div>
+  <div class="about-wrap">
+    <!-- 我的照片 -->
+    <div class="about-img reveal">
+      <img src="about-photo-compressed.jpg" alt="黄宝晴的照片"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="about-img-placeholder" style="display:none">
+        <i class="fas fa-user"></i>
+      </div>
+    </div>
+    <div class="reveal">
+      <h3 style="font-size:1.9rem;font-weight:800;margin-bottom:1rem">
+        你好，我是<span class="hl">黄宝晴</span> 👋
+      </h3>
+      <p style="color:var(--text-p);line-height:1.9;margin-bottom:1rem">
+        <strong>西北民族大学 · 新闻学 2023级本科生</strong><br>
+        中共党员 · 壮族 · 广西南宁市人
+      </p>
+      <p style="color:var(--text-p);line-height:1.9;margin-bottom:1rem">
+        在非线性编辑课程中，我系统学习并实践了 Adobe Premiere Pro 的各类核心功能，
+        从基础的关键帧位移、字幕特效，到进阶的绿幕抠像、节目包装，
+        每一个作品都承载着我对视频创作的热爱与探索。
+      </p>
+      <p style="color:var(--text-p);line-height:1.9;margin-bottom:1.5rem">
+        以赛促学，我积极参加各类专业竞赛，作品《圆楼纪》获全国计算机设计大赛省级二等奖，
+        《被偷走的目光》获未来设计师校赛一等奖。未来将持续探索 AIGC 与传统剪辑的融合创作。
+      </p>
+      <div class="about-tag-row">
+        <span class="about-tag">Adobe Premiere Pro</span>
+        <span class="about-tag">视频剪辑</span>
+        <span class="about-tag">节目包装</span>
+        <span class="about-tag">字幕特效</span>
+        <span class="about-tag">AIGC创作</span>
+        <span class="about-tag">西北民族大学</span>
+        <span class="about-tag">中共党员</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= 经历时间线 -->
+<section id="timeline">
+  <div class="section-head reveal">
+    <div class="section-tag">EXPERIENCE</div>
+    <h2 class="section-title">实践 <span class="hl">经历</span></h2>
+    <p class="section-sub">在实践中成长 · 在创作中突破</p>
+  </div>
+  <div class="tl-wrap reveal">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2026年02月 · 广西南宁市</div>
+      <div class="tl-title">广西南宁市兴宁区融媒体中心 · 综合编辑岗</div>
+      <div class="tl-desc">负责公众号内容策划与发布，累计创作30+篇推文，多篇阅读量破5000；运用Photoshop设计封面图，点击率提升20%以上；参与"三街两巷"IP形象宣传专题。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2025年08月-12月 · 甘肃兰州市</div>
+      <div class="tl-title">新媒体运营课程项目 · 兰州美食探店账号</div>
+      <div class="tl-desc">独立创建并运营兰州美食探店账号，累计发布15+条短视频，粉丝增长至500+，单条最高播放量超3000。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2024年-2026年 · 甘肃兰州市</div>
+      <div class="tl-title">西北民族大学新闻传播学院 · 党支部宣传委员</div>
+      <div class="tl-desc">策划组织多次主题党日活动，负责党员信息整理与新党员发展工作，利用校园媒体宣传党的方针政策。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2024年06月 · 广西南宁市</div>
+      <div class="tl-title">广西国有高峰林场 · 宣传岗</div>
+      <div class="tl-desc">负责林场新媒体平台日常运营，运用Photoshop设计宣传材料，拍摄剪辑生态短视频系列，策划执行"林场开放日"活动，参与人数超300人。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= 联系 -->
+<section id="contact">
+  <div class="section-head reveal">
+    <div class="section-tag">CONTACT</div>
+    <h2 class="section-title">联系 <span class="hl">我</span></h2>
+    <p class="section-sub">欢迎交流合作 · 视频创作咨询</p>
+  </div>
+  <div class="contact-grid reveal">
+    <!-- 联系方式 -->
+    <div class="contact-card">
+      <div class="contact-ico"><i class="fas fa-id-card"></i></div>
+      <div class="contact-lbl">学号</div>
+      <div class="contact-val">P231014739</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-ico"><i class="fas fa-university"></i></div>
+      <div class="contact-lbl">学校</div>
+      <div class="contact-val">西北民族大学</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-ico"><i class="fas fa-envelope"></i></div>
+      <div class="contact-lbl">邮箱</div>
+      <div class="contact-val">2410658565@qq.com</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-ico"><i class="fas fa-phone"></i></div>
+      <div class="contact-lbl">电话</div>
+      <div class="contact-val">150 0257 7482</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 <span class="gd">黄宝晴</span> · 西北民族大学新闻学 · 非线性编辑作品集 · 每一帧，都是成长</p>
+</footer>
+
+<!-- ======================================================= 视频弹窗 -->
+<div class="modal-bg" id="modal">
+  <div class="modal-box">
+    <div class="modal-hd">
+      <div class="modal-ttl" id="modalTitle">作品</div>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <video class="modal-vid" id="modalVid" controls preload="none">
+      <source id="modalSrc" src="" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<!-- 证书弹窗 -->
+<div class="modal-bg" id="certModal">
+  <div class="modal-box" style="max-width:680px">
+    <div class="modal-hd">
+      <div class="modal-ttl">荣誉证书</div>
+      <button class="modal-close" onclick="closeCertModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <img id="certImg" src="" alt="证书大图" style="width:100%;display:block;background:#f5f5f5">
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   JS 功能模块
+   ============================================================ */
+
+/* ── 1. 鼠标光晕 ── */
+const glow=document.getElementById('mouseGlow');
+document.addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+document.addEventListener('mouseleave',()=>glow.style.opacity='0');
+document.addEventListener('mouseenter',()=>glow.style.opacity='1');
+
+/* ── 2. 导航滚动效果 ── */
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>30)});
+function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
+
+/* ── 3. 打字机效果 ── */
+const typelines=["视频创作者 · 剪辑师 · 视觉叙事者","Adobe Premiere Pro · 关键帧动画 · 字幕特效","以赛促学 · 用心创作每一帧"];
+let typeli=0,typech=0,typedeleting=false,typeel=document.getElementById('typedEl');
+function typewrite(){
+  const cur=typelines[typeli];
+  if(!typedeleting){
+    typeel.textContent=cur.substring(0,typech+1);typech++;
+    if(typech===cur.length){typedeleting=true;setTimeout(typewrite,1600);return}
+    setTimeout(typewrite,95+Math.random()*55);
+  }else{
+    typeel.textContent=cur.substring(0,typech-1);typech--;
+    if(typech===0){typedeleting=false;typeli=(typeli+1)%typelines.length;setTimeout(typewrite,400);return}
+    setTimeout(typewrite,45);
+  }
+}
+typewrite();
+
+/* ── 4. 作品筛选 ── */
+function filterWorks(cat,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-card').forEach(c=>{
+    c.style.display=(cat==='all'||c.dataset.cat===cat)?'':'none';
+  });
+}
+
+/* ── 5. 视频弹窗 ── */
+// 视频路径映射（用 data-id 查找，避免 HTML 属性中的特殊字符问题）
+const VIDEO_PATHS = {
+  'stolen-gaze': 'P231014739 黄宝晴/P231014739黄宝晴+期末作品/P231014（761+739+729）+（董芯羽+黄宝晴+刘星余）+期末作品《被偷走的目光》/P231014（761+739+729）+（董芯羽+黄宝晴+刘星余）《被偷走的目光》.mp4',
+  'ai-guangxi': 'AI\u773c\u4e2d\u7684\u201c\u5e7f\u897f\u201d/P231014739\u9ec4\u5b9d\u6674+AI\u773c\u4e2d\u7684\u5e7f\u897f.mp4',
+  'yuanlouji': '\u671f\u4e2d\u7efc\u5408\u5b9e\u8df5\u4f5c\u4e1a\u300a\u5706\u697c\u7eaa\u300b/\u5706\u697c\u7eaa_\u538b\u7f29\u7248.mp4',
+};
+
+const modal=document.getElementById('modal');
+const modalVid=document.getElementById('modalVid');
+const modalSrc=document.getElementById('modalSrc');
+const modalTitle=document.getElementById('modalTitle');
+
+document.querySelectorAll('.work-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const id = card.dataset.id;
+    let src = id ? VIDEO_PATHS[id] : (card.dataset.video || '');
+    modalTitle.textContent=card.dataset.title||'作品';
+    
+    // 手动编码括号和加号（encodeURI 不会编码这些）
+    let encodedSrc = encodeURI(src);
+    encodedSrc = encodedSrc.replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\+/g, '%2B');
+    
+    modalSrc.src=encodedSrc;
+    modalVid.load();
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+    
+    // 添加加载状态提示
+    modalVid.style.opacity = '0.5';
+    modalVid.addEventListener('loadeddata', function handler() {
+      modalVid.style.opacity = '1';
+      modalVid.removeEventListener('loadeddata', handler);
+    });
+    
+    // 错误处理
+    modalVid.addEventListener('error', function errHandler() {
+      console.error('视频加载失败:', src);
+      modalVid.style.opacity = '1';
+      modalVid.removeEventListener('error', errHandler);
+    });
+  });
+});
+
+function closeModal(){
+  modal.classList.remove('open');
+  modalVid.pause();
+  document.body.style.overflow='';
+}
+
+/* 点击背景关闭 */
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* ── 6. 证书弹窗 ── */
+function openCertModal(src){
+  const certModal=document.getElementById('certModal');
+  document.getElementById('certImg').src=src;
+  certModal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeCertModal(){
+  const certModal=document.getElementById('certModal');
+  certModal.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('certModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeCertModal()});
+
+/* ── 7. 滚动动画（IntersectionObserver）── */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');observer.unobserve(e.target)}});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.tl-item').forEach(el=>observer.observe(el));
+
+/* ── 8. 技能条动画 ── */
+const skillObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-fill').forEach(f=>{f.style.width=f.dataset.pct+'%'});
+      skillObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.skill-card').forEach(el=>skillObserver.observe(el));
+
+/* ── 9. 导航高亮当前区块 ── */
+const sections=document.querySelectorAll('section,div[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{
+    const top=s.offsetTop-120;
+    if(window.scrollY>=top)cur=s.id;
+  });
+  navLinks.forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+cur);
+  });
+});
+</script>
+</body>
+</html>
